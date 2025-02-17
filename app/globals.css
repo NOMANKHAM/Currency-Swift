@@ -95,16 +95,19 @@ body {
   letter-spacing: 0.1px;
 }
 
-/* scroll effect */
+/* Scroll effect */
 .scroll {
   position: fixed;
-  backdrop-filter: blur(1000px);
+  backdrop-filter: blur(10px); /* 1000px is too much, reducing for better effect */
   height: 90px;
   z-index: 1000;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+  width: 100%; /* Ensure the navbar spans the width */
+  transition: all 0.3s ease-in-out; /* Smooth transition */
 }
+
 
 /* nav toogle */
 .toggle {
@@ -488,7 +491,7 @@ main {
 }
 
 /* Input Styles */
-input[type="number"] {
+#amount {
   width: 100%;
   max-width: 660px;
   height: 50px;
@@ -506,7 +509,15 @@ input[type="number"] {
   caret-color: #005f99;
 }
 
-input[type="number"]:focus {
+.search-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: text;
+}
+#amount:focus {
   transition: box-shadow 0.5s ease;
   box-shadow: inset 2px 2px 8px #0d0d0d71, inset -2px -2px 8px #2a2a2a86,
     0 0 5px rgba(255, 255, 255, 0.2);
@@ -1766,6 +1777,7 @@ display: none;
     flex-direction: column;
     align-items: center;
     align-content: center;
+    justify-content: center;
     height: 400px;
     width: 90%;
   }
@@ -1783,7 +1795,7 @@ display: none;
     top: 110px;
   }
 
-  input[type="number"] {
+#amount{
     top: 260px;
     width: 88%;
   }
@@ -1985,4 +1997,7 @@ margin: 0 10px;
   top:-40px;
   left: -110px;
   list-style: none;
+}
+#amount{
+  color: black;
 }

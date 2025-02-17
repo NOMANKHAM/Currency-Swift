@@ -8,11 +8,11 @@ export function setupCurrencyConverter() {
       const options = dropdown.querySelectorAll(".currency")
       const output = document.getElementById(outputId)
   
-      // Toggle dropdown visibility
-      dropdown.addEventListener("click", () => {
-        dropdown.classList.toggle("open")
-      })
-  
+    // Toggle dropdown visibility
+    dropdown.addEventListener("click", () => {
+      dropdown.classList.toggle("open")
+    });
+
       // Handle option selection
       options.forEach((option) => {
         option.addEventListener("click", (e) => {
@@ -24,10 +24,9 @@ export function setupCurrencyConverter() {
           if (output && value) {
             output.textContent = value // Update output paragraph
           }
-          dropdown.classList.remove("open") // Close the dropdown
         })
       })
-  
+    
       // Close dropdown when clicking outside
       document.addEventListener("click", (e) => {
         if (!dropdown.contains(e.target as Node)) {
@@ -69,13 +68,20 @@ export function setupCurrencyConverter() {
     // Fetch data with async/await
     async function fetchExchangeRate(apiUrl: string) {
       try {
+        setupDropdown("from-dropdown", "from-output")
+        setupDropdown("to-dropdown", "to-output")
         const response = await fetch(apiUrl)
         if (!response.ok) {
           throw new Error("Network response was not ok")
         }
+       
         const data = await response.json()
         return data
+    
+    
       } catch (error) {
+        setupDropdown("from-dropdown", "from-output")
+        setupDropdown("to-dropdown", "to-output")
         console.error("Error fetching API data:", error)
         alert("Error fetching API data. Please try again.")
       }

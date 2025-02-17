@@ -1,7 +1,9 @@
 "use client"
 
-import { useState } from "react"
-import { useEffect } from "react"
+import type React from "react"
+
+import { useState, useEffect, useRef } from "react"
+
 interface CurrencyDropdownProps {
   id: string
   defaultCurrency: string
@@ -12,15 +14,28 @@ export default function CurrencyDropdown({ id, defaultCurrency, onSelect }: Curr
   const [isOpen, setIsOpen] = useState(false)
   const [selectedCurrency, setSelectedCurrency] = useState(defaultCurrency)
   const [searchTerm, setSearchTerm] = useState("")
-useEffect(() => {
- const el = document.querySelector('.searchInput');
-  el?.addEventListener('click',() =>{
-    setIsOpen(!isOpen)
-  })
-  // return () => {
-    
-  // };
-}, [isOpen]);
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const searchInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside)
+    return () => {
+      document.removeEventListener("click", handleClickOutside)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isOpen && searchInputRef.current) {
+      searchInputRef.current.focus()
+    }
+  }, [isOpen])
+
   const currencies = [
     { code: "USD", name: "United States Dollar" },
     { code: "EUR", name: "Euro" },
@@ -200,33 +215,50 @@ useEffect(() => {
       currency.name.toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
-  const handleSelect = (currency: string) => {
+  const handleSelect = (currency: string, event: React.MouseEvent) => {
+    event.preventDefault()
+    event.stopPropagation()
     setSelectedCurrency(currency)
     onSelect(currency)
     setIsOpen(false)
   }
 
+  const toggleDropdown = (event: React.MouseEvent) => {
+    event.preventDefault()
+    event.stopPropagation()
+    setIsOpen((prevIsOpen) => !prevIsOpen)
+  }
+
+  const handleInputClick = (event: React.MouseEvent) => {
+    event.stopPropagation()
+    if (searchInputRef.current) {
+      searchInputRef.current.focus()
+    }
+  }
+
   return (
-    <div id={id} className="dropdown relative">
-      <span className="selected-value dark cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
+    <div id={id} className="dropdown relative" ref={dropdownRef} onClick={toggleDropdown}>
+      <span className="selected-value dark cursor-pointer" onClick={toggleDropdown}>
         {selectedCurrency}
       </span>
       {isOpen && (
         <div className="dropdown-options dark absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-          <div className="search p-2">
+          <div className="search p-2" onClick={handleInputClick}>
             <input
               type="text"
               className="searchInput w-full p-2 border border-gray-300 rounded"
               placeholder="Search for countries or currencies..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              ref={searchInputRef}
+              onClick={toggleDropdown}
             />
           </div>
           {filteredCurrencies.map((currency) => (
             <div
               key={currency.code}
               className="currency p-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => handleSelect(currency.code)}
+              onClick={(event) => handleSelect(currency.code, event)}
             >
               {currency.code}
               <p className="cnname text-sm text-gray-600">{currency.name}</p>

@@ -2,18 +2,38 @@ import Link from "next/link"
 import Image from "next/image"
 import Darkmode from "./DarkModeToggle"
 
-// import { useEffect } from "react";
+import { useEffect } from "react";
 
 export default function Nav(){
-    // const mediaQuery = window.matchMedia("(max-width: 956px)");
-    // useEffect(() => {
-    //   // Select the nav element
-    //   const nav = document.querySelector("nav");
-  
-    //   if (nav && window.matchMedia("(max-width: 956px)").matches) {
-    //     nav.style.background = "red";
-    //   }
-    // }, []);
+
+  useEffect(() => {
+    let lastScrollTop: number = 0;
+    const navbar: HTMLElement | null = document.querySelector(".nav");
+
+    if (!navbar) return; // Ensure navbar exists
+
+    const handleScroll = (): void => {
+      const scrollTop: number = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollTop > lastScrollTop) {
+        // Scrolling down
+        navbar.classList.add("scroll");
+      } else {
+        // Scrolling up
+        if (scrollTop < 10) {
+          navbar.classList.remove("scroll");
+        }
+      }
+
+      lastScrollTop = scrollTop;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
     
 return(
