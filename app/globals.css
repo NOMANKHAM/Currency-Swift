@@ -1568,7 +1568,7 @@ display: none;
   }
 
   .sidebar-container {
-    position: relative;
+    position:relative;
     z-index: 1000000;
     display: flex;
     align-items: center;
@@ -1576,6 +1576,19 @@ display: none;
     height: 80px;
     background: #bfdbfcc2;
   }
+  /* Scroll effect */
+.scroll {
+  position: fixed;
+  backdrop-filter: blur(10px); /* 1000px is too much, reducing for better effect */
+  height: 90px;
+  z-index: 1000;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+  width: 100%; /* Ensure the navbar spans the width */
+  transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
   .sidebar-logo {
     position: relative;
     width: 80px;

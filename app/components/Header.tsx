@@ -13,7 +13,7 @@ export default function Nav(){
     if (!navbar) return; // Ensure navbar exists
 
     const handleScroll = (): void => {
-      const scrollTop: number = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollTop: number = window.scrollY || document.documentElement.scrollTop;
 
       if (scrollTop > lastScrollTop) {
         // Scrolling down
