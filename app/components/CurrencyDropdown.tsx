@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-
+import { useEffect } from "react"
 interface CurrencyDropdownProps {
   id: string
   defaultCurrency: string
@@ -12,12 +12,19 @@ export default function CurrencyDropdown({ id, defaultCurrency, onSelect }: Curr
   const [isOpen, setIsOpen] = useState(false)
   const [selectedCurrency, setSelectedCurrency] = useState(defaultCurrency)
   const [searchTerm, setSearchTerm] = useState("")
-
+useEffect(() => {
+ const el = document.querySelector('.searchInput');
+  el?.addEventListener('click',() =>{
+    setIsOpen(!isOpen)
+  })
+  // return () => {
+    
+  // };
+}, [isOpen]);
   const currencies = [
     { code: "USD", name: "United States Dollar" },
     { code: "EUR", name: "Euro" },
     { code: "GBP", name: "British Pound Sterling" },
-    // ... add more currencies as needed
     { code: "AED", name: "United Arab Emirates Dirham" },
     { code: "AFN", name: "Afghan Afghani" },
     { code: "ALL", name: "Albanian Lek" },

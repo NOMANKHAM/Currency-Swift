@@ -14,12 +14,6 @@ import { setupCurrencyConverter } from "./currencyConverter"
 export default function Home() {
   // const [isOpen, setIsOpen] = useState<boolean>(false);
   useEffect(() => {
-
-
-
-
-  
-
     setupCurrencyConverter()
   }, [])
 
