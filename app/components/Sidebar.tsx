@@ -3,28 +3,39 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useEffect } from "react";
 import Darkmode from "./DarkModeToggle"
 export default function Sidebar() {
   const  [isOpen, setIsOpen] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   const bodye = document.querySelector("body");
+ useEffect(() => {
+    let lastScrollTop: number = 0;
+    const navbar: HTMLElement | null = document.querySelector(".sidebar-container");
 
-  //   if (bodye && window.matchMedia("(max-width: 956px)").matches) {
-  //     if (isOpen) {
-  //       bodye.style.overflowY = "hidden"; // Prevent scrolling
-  //     } else {
-  //       bodye.style.overflowY = "auto"; // Restore scrolling
-  //     }
-  //   }
+    if (!navbar) return; // Ensure navbar exists
 
-  //   // Cleanup function to reset styles when component unmounts
-  //   return () => {
-  //     if (bodye) {
-  //       bodye.style.overflowY = "auto";
-  //     }
-  //   };
-  // }, [isOpen]);
+    const handleScroll = (): void => {
+      const scrollTop: number = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollTop > lastScrollTop) {
+        // Scrolling down
+        navbar.classList.add("scroll");
+      } else {
+        // Scrolling up
+        if (scrollTop < 10) {
+          navbar.classList.remove("scroll");
+        }
+      }
+
+      lastScrollTop = scrollTop;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <div className="sidebar-container">
       {/* Menu Button */}
