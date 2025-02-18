@@ -237,16 +237,16 @@ export default function CurrencyDropdown({ id, defaultCurrency, onSelect }: Curr
   }
 
   return (
-    <div id={id} className="dropdown relative" ref={dropdownRef} onClick={toggleDropdown}>
-      <span className="selected-value dark cursor-pointer" onClick={toggleDropdown}>
+    <div id={id} className="dropdown" ref={dropdownRef} onClick={toggleDropdown}>
+      <span className="selected-value dark" onClick={toggleDropdown}>
         {selectedCurrency}
       </span>
       {isOpen && (
-        <div className="dropdown-options dark absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
+        <div className="dropdown-options dark">
           <div className="search p-2" onClick={handleInputClick}>
             <input
               type="text"
-              className="searchInput w-full p-2 border border-gray-300 rounded"
+              className="searchInput"
               placeholder="Search for countries or currencies..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -257,11 +257,11 @@ export default function CurrencyDropdown({ id, defaultCurrency, onSelect }: Curr
           {filteredCurrencies.map((currency) => (
             <div
               key={currency.code}
-              className="currency p-2 hover:bg-gray-100 cursor-pointer"
+              className="currency"
               onClick={(event) => handleSelect(currency.code, event)}
             >
               {currency.code}
-              <p className="cnname text-sm text-gray-600">{currency.name}</p>
+              <p className="cnname">{currency.name}</p>
             </div>
           ))}
         </div>

@@ -29,7 +29,7 @@ export default function Hero() {
             width={500}
             height={300}
             className="vid"
-            priority // Ensures that this image is prioritized for loading
+            loading="lazy"
           />
         </div>
       </div>
