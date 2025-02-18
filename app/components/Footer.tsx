@@ -21,10 +21,7 @@ export default function Footer() {
         <p>Email: info@exchange-paisa.com</p>
         <p>Phone: +92 311-999-1973</p>
       </div>
-   {/* <div className="follow">
-        <h2>Follow Us</h2>
 
-      </div> -- */}
     </footer>
   )
 }

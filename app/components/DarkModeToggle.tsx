@@ -7,10 +7,27 @@ export default function DarkModeToggle() {
   const [darkMode, setDarkMode] = useState(false)
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark-mode")
+    // Check localStorage for dark mode preference
+    const storedDarkMode = localStorage.getItem('darkMode') === 'true';
+    setDarkMode(storedDarkMode);
+
+    // Apply the dark mode class based on the stored preference
+    if (storedDarkMode) {
+      document.documentElement.classList.add("dark-mode");
     } else {
-      document.documentElement.classList.remove("dark-mode")
+      document.documentElement.classList.remove("dark-mode");
+    }
+  }, [])
+
+  useEffect(() => {
+    // Save the dark mode preference to localStorage when it changes
+    localStorage.setItem('darkMode', darkMode.toString());
+    
+    // Add or remove the dark mode class based on the state
+    if (darkMode) {
+      document.documentElement.classList.add("dark-mode");
+    } else {
+      document.documentElement.classList.remove("dark-mode");
     }
   }, [darkMode])
 
@@ -32,12 +49,12 @@ export default function DarkModeToggle() {
           --button-background: rgb(45, 31, 241);
           --button-color: #fff;
           --feature-card-shadow: 0 0 30px 0px rgba(0, 0, 0, 0.331);
-           --container-shadow: 0 10px 105px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1);
-                   --container-background:#ffff;
-                             --opt: rgb(231, 231, 231);
-                              --black:#ffff;
-                                --dcolor:rgb(218, 218, 218);
-                                       --under-background: rgb(45, 31, 241);
+          --container-shadow: 0 10px 105px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1);
+          --container-background:#ffff;
+          --opt: rgb(231, 231, 231);
+          --black:#ffff;
+          --dcolor:rgb(218, 218, 218);
+          --under-background: rgb(45, 31, 241);
         }
 
         .dark-mode {
@@ -59,9 +76,9 @@ export default function DarkModeToggle() {
           --container-background: #111827;
           --black:#000;
           --fcolor:rgb(85, 81, 81);
-            --dcolor:rgb(85, 81, 81);
+          --dcolor:rgb(85, 81, 81);
           --opt: #2c2c2c;
-                 --under-background: rgb(45, 31, 241);
+          --under-background: rgb(45, 31, 241);
         }
 
         body {
@@ -69,13 +86,17 @@ export default function DarkModeToggle() {
           background-color: var(--background-color);
           transition: color 0.3s ease, background-color 0.3s ease;
         }
-.container{
-background:var(--card-background);
-box-shadow:var(--container-shadow);
-}.sidebar-container{
+
+        .container {
+          background: var(--card-background);
+          box-shadow: var(--container-shadow);
+        }
+
+        .sidebar-container {
           background: var(--nav-background);
           transition: background-color 0.3s ease;
-}
+        }
+
         .nav {
           background: var(--nav-background);
           transition: background-color 0.3s ease;
@@ -130,7 +151,6 @@ box-shadow:var(--container-shadow);
           transition: color 0.3s ease;
         }
 
-        /* Additional styles */
         .dropdown .selected-value {
           color: var(--text-color);
           border-color: var(--input-border);
@@ -148,12 +168,6 @@ box-shadow:var(--container-shadow);
           color: var(--text-color);
           transition: background-color 0.3s ease, color 0.3s ease;
         }
-
-        // .code {
-        //   background: var(--card-background);
-        //   color: var(--text-color);
-        //   transition: background-color 0.3s ease, color 0.3s ease;
-        // }
 
         .nav ul li a {
           color: var(--text-color);
@@ -184,47 +198,53 @@ box-shadow:var(--container-shadow);
         .navigator {
           background: var(--black);
           transition: background-color 0.3s ease;
-        }.api .bow{
-           background: var(--black);
         }
 
         .syntax {
           color: var(--text-color);
           transition: color 0.3s ease;
-        }.features,.api{
-                  background: var(--background-color);
+        }
+
+        .features, .api {
+          background: var(--background-color);
           color: var(--text-color);
         }
-          .codetext{
-                  background: var(--container-background);
 
-          }.fcards{
-          color:var(--text-color);
-          }.fcards .fp{
-           color:var(--fcolor);
-          }.w-6{
-               color:var(--text-color);
-          }.exapip{
-           color:var(--text-color);
-          }
+        .codetext {
+          background: var(--container-background);
+        }
+
+        .fcards {
+          color: var(--text-color);
+        }
+
+        .fcards .fp {
+          color: var(--fcolor);
+        }
+
+        .w-6 {
+          color: var(--text-color);
+        }
+
+        .exapip {
+          color: var(--text-color);
+        }
       `}</style>
 
       <button
         onClick={() => setDarkMode(!darkMode)}
-       className="dmode"
+        className="dmode"
         style={{
-            // padding: "0.5rem", // p-2
-            position:'absolute',
-            right:'30px',
-            top:'27px',
-            border:'none',
-            borderRadius: "9999px", // rounded-full
-            backgroundColor: "transparent", // bg-card
-            color: "var(--text-color)", // text-text
-            transition: "background-color 0.2s ease",
-            animation: 'pulse 2s ease-in-out infinite', // transition-colors duration-200
-          }}
-          
+          position: 'absolute',
+          right: '30px',
+          top: '27px',
+          border: 'none',
+          borderRadius: '9999px',
+          backgroundColor: 'transparent',
+          color: 'var(--text-color)',
+          transition: 'background-color 0.2s ease',
+          animation: 'pulse 2s ease-in-out infinite',
+        }}
         aria-label="Toggle dark mode"
       >
         {darkMode ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
@@ -232,4 +252,3 @@ box-shadow:var(--container-shadow);
     </div>
   )
 }
-

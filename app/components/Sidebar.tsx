@@ -1,14 +1,16 @@
+import React from "react";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useEffect } from "react";
-import Darkmode from "./DarkModeToggle"
-export default function Sidebar() {
-  const  [isOpen, setIsOpen] = useState<boolean>(false);
+import Darkmode from "./DarkModeToggle";
 
- useEffect(() => {
+function Sidebar() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  useEffect(() => {
     let lastScrollTop: number = 0;
     const navbar: HTMLElement | null = document.querySelector(".sidebar-container");
 
@@ -36,13 +38,12 @@ export default function Sidebar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   return (
     <div className="sidebar-container">
       {/* Menu Button */}
-      <button className="menu-button" onClick={() => setIsOpen(!isOpen)} style={{ background: 'transparent', position: "absolute", zIndex: "10" ,left:'20px',width:'50px',height:'50px',border:'none' }}>
-        {isOpen ? <X size={40} /> : <Menu size={40} />
-        
-        }
+      <button className="menu-button" onClick={() => setIsOpen(!isOpen)} style={{ background: 'transparent', position: "absolute", zIndex: "10", left: '20px', width: '50px', height: '50px', border: 'none' }}>
+        {isOpen ? <X size={40} /> : <Menu size={40} />}
       </button>
 
       {/* Sidebar */}
@@ -50,12 +51,12 @@ export default function Sidebar() {
         initial={{ x: "-100%" }}
         animate={{ x: isOpen ? 0 : "-100%" }}
         transition={{ type: "spring", stiffness: 120 }}
-        className={`sidebar ${isOpen ? "open": ""}`}
+        className={`sidebar ${isOpen ? "open" : ""}`}
       >
         <div className="NAV">
           {/* Logo */}
           <div className="sidebar-logo">
-            <Image src="/Assets/logo.png" alt="logo" width={190} height={190} style={{position:'absolute',left:'-50px',top:'-30px'}}/>
+            <Image src="/Assets/logo.png" alt="logo" width={190} height={190} style={{ position: 'absolute', left: '-50px', top: '-30px' }} />
           </div>
 
           {/* Navigation Links */}
@@ -85,3 +86,5 @@ export default function Sidebar() {
     </div>
   );
 }
+
+export default React.memo(Sidebar);
