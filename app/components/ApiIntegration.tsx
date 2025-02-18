@@ -8,6 +8,7 @@ import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 export default function ApiIntegration() {
   const [activeTab, setActiveTab] = useState<"js" | "php" | "py">("js");
   const navigatorRef = useRef<HTMLDivElement>(null);
+  const tabsRef = useRef<NodeListOf<HTMLLIElement> | null>(null);
 
   const codeExamples = {
     js: `// JavaScript Example
@@ -62,16 +63,30 @@ else:
     print(f"Conversion failed: {data['error-type']}")`,
   };
 
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(codeExamples[activeTab]);
-      alert(`Copied ${activeTab.toUpperCase()} Code ✅`);
-    } catch (err) {
-      console.error("Failed to copy:", err);
-    }
-  };
+  useEffect(() => {
+    const copyText = async () => {
+      const textToCopy = codeExamples[activeTab];
+      if (!textToCopy) return;
+
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        alert(`Copied ${activeTab.toUpperCase()} Code ✅`);
+      } catch (err) {
+        console.error("Failed to copy:", err);
+      }
+    };
+
+    const btn = document.querySelector(".code");
+    btn?.addEventListener("click", copyText);
+
+    return () => {
+      btn?.removeEventListener("click", copyText);
+    };
+  }, [activeTab]);
 
   useEffect(() => {
+    tabsRef.current = document.querySelectorAll(".opt ul li");
+
     const updateNavigator = () => {
       const activeLi = document.querySelector(".opt ul li.active") as HTMLLIElement;
       if (!activeLi || !navigatorRef.current) return;
@@ -83,6 +98,7 @@ else:
 
     updateNavigator();
     window.addEventListener("resize", updateNavigator);
+
     return () => {
       window.removeEventListener("resize", updateNavigator);
     };
@@ -95,9 +111,16 @@ else:
         <h1 className="exapih1">How to Use Exchange Rate API</h1>
         <p className="exapip">Integrate real-time currency conversion into your applications</p>
 
-        {/* Tabs for Language Selection */}
         <div className="opt">
-          <div ref={navigatorRef} className="navigator"></div>
+          <div
+            ref={navigatorRef}
+            className="navigator"
+            style={{
+              position: "absolute",
+              height: "33px",
+              transition: "0.3s",
+            }}
+          ></div>
           <ul>
             {["js", "php", "py"].map((tab) => (
               <li
@@ -111,7 +134,6 @@ else:
           </ul>
         </div>
 
-        {/* Code Block */}
         <div className="code">
           <pre className="pre">
             <SyntaxHighlighter
@@ -129,22 +151,32 @@ else:
               {codeExamples[activeTab]}
             </SyntaxHighlighter>
           </pre>
-          <button className="copy-btn" onClick={copyToClipboard}>
-            Copy Code
-          </button>
         </div>
 
-        {/* API Endpoint & Parameters */}
-        <div className="api-details">
-          <h3>API Endpoint</h3>
+        <div className="end">
+          <h3 style={{ position: "absolute", top: "-155px", fontWeight: 700, fontSize: "22px" }}>
+            API Endpoint
+          </h3>
           <p>
-            <code className="codetext">
+            <code
+                   className="codetext"
+              style={{
+
+                padding: "5px",
+                borderRadius: "3px",
+                position: "absolute",
+                top: "-125px",
+                whiteSpace: "nowrap",
+              }}
+       
+            >
               https://v6.exchangerate-api.com/v6/YOUR_API_KEY/pair/FROM_CURRENCY/TO_CURRENCY/AMOUNT
             </code>
           </p>
-
-          <h3>Parameters</h3>
-          <ul>
+          <h3 style={{ fontSize: "23px", fontWeight: "bold", position: "absolute", top: "-80px" }}>
+            Parameters
+          </h3>
+          <ul style={{ position: "relative", top: "-40px" }}>
             <li>
               <strong>YOUR_API_KEY:</strong> Your Exchange Rate API key
             </li>
@@ -158,7 +190,6 @@ else:
               <strong>AMOUNT:</strong> The amount to convert
             </li>
           </ul>
-
           <p>
             For more details, refer to the{" "}
             <Link href="https://www.exchangerate-api.com/docs" target="_blank" rel="noopener noreferrer">

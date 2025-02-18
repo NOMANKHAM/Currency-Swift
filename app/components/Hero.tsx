@@ -24,7 +24,7 @@ export default function Hero() {
         <button className="gets">Get Started</button>
         <div className="video">
           <Image
-            src="/Assets/mainvideo.gif"
+            src="/Assets/mainpic.png"
             alt="Currency-Exchange-How-to-use"
             width={500}
             height={300}
