@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <>
-    <head><meta name="google-site-verification" content="fQESepwJasMaPYeGoDwXgjl0JMlNYvpO5fr54MKIJqk" /></head>
+    
       <header>
       <Nav />
       <Side />

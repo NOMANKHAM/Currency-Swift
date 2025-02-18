@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" href="/Assets/favicon.ico.png" type="image/png" />
+      <head><meta name="google-site-verification" content="fQESepwJasMaPYeGoDwXgjl0JMlNYvpO5fr54MKIJqk" /></head>
       <body className={inter.className}>{children}</body>
     </html>
   )
