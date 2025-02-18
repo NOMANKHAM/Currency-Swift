@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /admin
+Sitemap: https://currencyswift.vercel.app/sitemap.xml
