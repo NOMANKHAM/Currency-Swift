@@ -29,7 +29,6 @@ export default function Hero() {
             width={500}
             height={300}
             className="vid"
-            loading="lazy"
           />
         </div>
       </div>
