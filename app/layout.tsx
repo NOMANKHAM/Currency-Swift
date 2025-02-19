@@ -50,7 +50,7 @@ export default function RootLayout({
 
         <meta name="author" content="Currency Swift" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/Assets/favicon.ico.png" type="image/x-icon" />
       </head>
       <body className={inter.className}>{children}</body>
     </html>
