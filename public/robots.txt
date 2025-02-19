@@ -2,6 +2,6 @@ User-agent: Googlebot
 Disallow:
 
 User-agent: *
-Disallow: /admin
+Disallow:
 
 Sitemap: https://currencyswift.vercel.app/sitemap.xml
