@@ -18,7 +18,7 @@ export default function Footer() {
       </div>
       <div className="contact">
         <h2>Contact Us</h2>
-        <p>Email: info@exchange-paisa.com</p>
+        <p>Email: info@currecyswift.com</p>
         <p>Phone: +92 311-999-1973</p>
       </div>
 

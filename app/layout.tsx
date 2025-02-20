@@ -19,6 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+      <script
+  async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3273233422690587"
+  crossOrigin="anonymous"
+/>
+
         <meta name="google-site-verification" content="fQESepwJasMaPYeGoDwXgjl0JMlNYvpO5fr54MKIJqk" />
         <meta
           name="keywords"
