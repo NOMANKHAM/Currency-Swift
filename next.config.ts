@@ -4,6 +4,9 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  env: {
+    SITE_NAME: "CurrencySwift",
+  },
 };
 
 export default withBundleAnalyzer({
