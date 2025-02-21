@@ -5,7 +5,7 @@ import type React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const siteName = process.env.SITE_NAME || "Currency-Swift";
+const siteName = process.env.SITE_NAME;
 
 export const metadata: Metadata = {
   title: `${siteName} - Convert Your Money Easily`,
@@ -17,6 +17,7 @@ export default function App({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
+      <meta name="google-site-verification" content="c2jK-sz8tm_355ANi6jYTjSYgJ3iQkxXhuihDlwQrHg" />
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3273233422690587"
