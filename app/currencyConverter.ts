@@ -140,4 +140,4 @@ export function setupCurrencyConverter() {
     // ... (rest of your JavaScript converted to TypeScript)
   }
   
-  
+   setupCurrencyConverter()
